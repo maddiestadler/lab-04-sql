@@ -1,7 +1,8 @@
+#importing :))) 
 import logging
 import os
-
 import mysql.connector
+
 #reading database info from variables
 DBHOST = os.environ.get("DBHOST")
 DBUSER = os.environ.get("DBUSER")
@@ -14,12 +15,7 @@ def get_data_by_group(value):
     """Return rows where the group column matches the value."""
     logging.info("Getting data by group")
 #connecting to database
-    db = mysql.connector.connect(
-        host=DBHOST,
-        user=DBUSER,
-        password=DBPASS,
-        database=DBNAME
-    )
+    db = mysql.connector.connect(host=DBHOST, user=DBUSER, password=DBPASS, database=DBNAME)
 
     cursor = db.cursor()
 #finding the rows that match the group with certain requirements 
@@ -32,22 +28,12 @@ def get_data_by_group(value):
     db.close()
 
     return results
-
+#counting data
 def plot_counts(groupby):
     """Count rows for each value in a column."""
     logging.info("Counting data")
-#allowing only certain columns in this function
-    allowed_columns = ["group", "name", "age", "email", "score"]
 
-    if groupby not in allowed_columns:
-        raise ValueError("Invalid column name")
-
-    db = mysql.connector.connect(
-        host=DBHOST,
-        user=DBUSER,
-        password=DBPASS,
-        database=DBNAME
-    )
+    db = mysql.connector.connect(host=DBHOST, user=DBUSER, password=DBPASS, database=DBNAME)
 
     cursor = db.cursor()
 #counting how many rows are in groups
@@ -60,9 +46,9 @@ def plot_counts(groupby):
     db.close()
 
     return results
-
+#printing 
 def main():
-    """Run example database queries."""
+    """running example database queries."""
     print(get_data_by_group("A"))
     print(plot_counts("group"))
 
